@@ -1,37 +1,29 @@
 package io.cockroachdb.test.junit4;
 
-import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.CockroachDetails;
-import io.cockroachdb.test.DemoFlags;
-import io.cockroachdb.test.TestContext;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
-import org.junit.ClassRule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.*;
-import java.util.concurrent.TimeUnit;
+import io.cockroachdb.test.CockroachDetails;
+import io.cockroachdb.test.TestContext;
 
-@Cockroach(
-        version = "v23.1.10",
-        architecture = Cockroach.Architecture.amd64,
-        command = Cockroach.Command.demo,
-        demoFlags = @DemoFlags(global = true, nodes = 9)
-)
-public class CockroachJunit4Test {
+public abstract class AbstractCockroachTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @ClassRule
-    public static CockroachExtension extension =
-            CockroachExtension.builder()
-                    .withTestClass(CockroachJunit4Test.class)
-                    .build();
+    protected abstract CockroachExtension getExtension();
 
     @Test
     public void whenCockroachStarted_thenSayHelloAndWait() throws SQLException {
         CockroachDetails cockroachDetails
-                = extension.getContext().get(TestContext.COCKROACH_DETAILS, CockroachDetails.class);
+                = getExtension().getContext().get(TestContext.COCKROACH_DETAILS, CockroachDetails.class);
 
         Assert.assertNotNull(cockroachDetails);
 

@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.concurrent.TimeUnit;
 
 //@ExtendWith(CockroachExtension.class)
-public abstract class CockroachJunit5Test {
+public abstract class AbstractCockroachTest {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 
     private CockroachDetails cockroachDetails;

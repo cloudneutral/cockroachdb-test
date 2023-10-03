@@ -1,8 +1,9 @@
-package io.cockroachdb.test.junit5;
+package io.cockroachdb.test.junit4;
+
+import org.junit.ClassRule;
 
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.DemoFlags;
-import org.junit.jupiter.api.extension.RegisterExtension;
 
 @Cockroach(
         version = "v23.1.10",
@@ -11,9 +12,14 @@ import org.junit.jupiter.api.extension.RegisterExtension;
         demoFlags = @DemoFlags(global = true, nodes = 9)
 )
 public class CockroachDemoTest extends AbstractCockroachTest {
-    @RegisterExtension
-    public static CockroachExtension cockroachExtension =
+    @ClassRule
+    public static CockroachExtension extension =
             CockroachExtension.builder()
                     .withTestClass(CockroachDemoTest.class)
                     .build();
+
+    @Override
+    protected CockroachExtension getExtension() {
+        return extension;
+    }
 }

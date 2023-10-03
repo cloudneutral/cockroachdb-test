@@ -64,5 +64,8 @@ public @interface Cockroach {
      */
     DemoFlags demoFlags() default @DemoFlags(global = true, nodes = 9);
 
+    /**
+     * Defines a semicolon separated list of SQL statements to execute for initialization.
+     */
     String initSQL() default "";
 }

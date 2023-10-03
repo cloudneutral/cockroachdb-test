@@ -20,7 +20,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
                 "ALTER RANGE default CONFIGURE ZONE USING \"gc.ttlseconds\" = 600;" +
                 "ALTER DATABASE system CONFIGURE ZONE USING \"gc.ttlseconds\" = 600;"
 )
-public class CockroachStartTest extends CockroachJunit5Test {
+public class CockroachStartTest extends AbstractCockroachTest {
     @RegisterExtension
     public static CockroachExtension cockroachExtension =
             CockroachExtension.builder()
