@@ -41,16 +41,26 @@ See [MIT](LICENSE.txt) license for terms and conditions.
 
 # Getting Started
 
-A quick getting started guide using CockroachDB integration tests with JUnit5.
+A quick getting started guide using CockroachDB integration tests.
 
 ## Maven Configuration
 
-Add this dependency to your `pom.xml` file:
+Add this dependency to your `pom.xml` file if you are using Junit5:
 
 ```xml
 <dependency>
-    <groupId>io.cockroachdb</groupId>
-    <artifactId>cockroachdb-junit5</artifactId>
+    <groupId>io.cockroachdb.test</groupId>
+    <artifactId>cockroachdb-test-junit5</artifactId>
+    <version>{version}</version>
+</dependency>
+```
+
+Alternatively, if you are using Junit4:
+
+```xml
+<dependency>
+    <groupId>io.cockroachdb.test</groupId>
+    <artifactId>cockroachdb-test-junit4</artifactId>
     <version>{version}</version>
 </dependency>
 ```
