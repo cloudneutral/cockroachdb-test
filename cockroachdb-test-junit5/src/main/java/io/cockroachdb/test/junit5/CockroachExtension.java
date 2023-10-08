@@ -1,20 +1,25 @@
 package io.cockroachdb.test.junit5;
 
-import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.CockroachDetails;
-import io.cockroachdb.test.plugin.StandardSteps;
-import io.cockroachdb.test.base.Step;
-import io.cockroachdb.test.util.OperatingSystem;
-import org.junit.jupiter.api.extension.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.extension.AfterAllCallback;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
+import org.junit.jupiter.api.extension.TestInstancePostProcessor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.cockroachdb.test.Cockroach;
+import io.cockroachdb.test.ProcessDetails;
+import io.cockroachdb.test.base.StandardSteps;
+import io.cockroachdb.test.base.Step;
+import io.cockroachdb.test.util.OperatingSystem;
 
 public class CockroachExtension
         implements BeforeAllCallback, AfterAllCallback,
@@ -36,7 +41,7 @@ public class CockroachExtension
             Cockroach cockroach = clazz.getAnnotation(Cockroach.class);
             if (cockroach == null) {
                 throw new IllegalStateException(
-                        "Expected @CockroachSetup type-level annotation for " + clazz.getName());
+                        "Expected @Cockroach type-level annotation for " + clazz.getName());
             }
             return new CockroachExtension(cockroach);
         }
@@ -54,16 +59,16 @@ public class CockroachExtension
 
     @Override
     public void postProcessTestInstance(Object testInstance, ExtensionContext context) throws Exception {
-        CockroachDetails cockroachDetails =
-                context.getStore(ExtensionContext.Namespace.GLOBAL).get("cockroachDetails", CockroachDetails.class);
+        ProcessDetails processDetails =
+                context.getStore(ExtensionContext.Namespace.GLOBAL).get("cockroachDetails", ProcessDetails.class);
         try {
             testInstance.getClass()
-                    .getMethod("setCockroachDetails", CockroachDetails.class)
-                    .invoke(testInstance, cockroachDetails);
+                    .getMethod("setProcessDetails", ProcessDetails.class)
+                    .invoke(testInstance, processDetails);
         } catch (NoSuchMethodException e) {
-            // ok nvm
+            logger.info("Process details injection failed - no such method: " + e);
         } catch (IllegalAccessException | InvocationTargetException | SecurityException e) {
-            throw new IllegalStateException(e);
+            logger.info("Process details injection failed", e);
         }
     }
 
@@ -77,7 +82,7 @@ public class CockroachExtension
         logger.debug("Host O/S metadata:\n" + sw);
 
         for (Step step : steps) {
-            logger.debug("Running setup step: {}", step);
+            logger.debug("Running step setup: {}", step.getClass().getName());
             step.setUp(ExtensionStoreContext.of(extensionContext), cockroach);
         }
     }
@@ -88,14 +93,15 @@ public class CockroachExtension
     }
 
     @Override
-    public void afterAll(ExtensionContext extensionContext) throws Exception {
-        if (extensionContext.getExecutionException().isEmpty()) {
-            Collections.reverse(steps);
+    public void afterAll(ExtensionContext extensionContext) {
+        logger.info("Teardown CockroachDB JUnit5 extension:\n{}",
+                extensionContext.getDisplayName());
 
-            for (Step step : steps) {
-                logger.debug("Running cleanup step: {}", step);
-                step.cleanUp(ExtensionStoreContext.of(extensionContext), cockroach);
-            }
+        Collections.reverse(steps);
+
+        for (Step step : steps) {
+            logger.debug("Running step cleanup: {}", step.getClass().getName());
+            step.cleanUp(ExtensionStoreContext.of(extensionContext), cockroach);
         }
     }
 }

@@ -114,25 +114,25 @@ public class CockroachJunit5Test {
                     .withTestClass(CockroachJunit5Test.class)
                     .build();
 
-    private CockroachDetails cockroachDetails;
+    private CockroachDetails processDetails;
 
-    public void setCockroachDetails(CockroachDetails cockroachDetails) {
-        this.cockroachDetails = cockroachDetails;
+    public void setProcessDetails(CockroachDetails processDetails) {
+        this.processDetails = processDetails;
     }
 
     @Test
     public void whenCockroachStarted_thenSayHelloAndWait() throws SQLException {
-        Assertions.assertNotNull(cockroachDetails);
+        Assertions.assertNotNull(processDetails);
 
         logger.info("Attempting connection to [{}] with credentials {}/{}",
-                cockroachDetails.getJdbcURL(),
-                cockroachDetails.getUser(),
-                cockroachDetails.getPassword());
+                processDetails.getJdbcURL(),
+                processDetails.getUser(),
+                processDetails.getPassword());
 
         try (Connection db = DriverManager.getConnection(
-                cockroachDetails.getJdbcURL(),
-                cockroachDetails.getUser(),
-                cockroachDetails.getPassword());
+                processDetails.getJdbcURL(),
+                processDetails.getUser(),
+                processDetails.getPassword());
              Statement s = db.createStatement();
              ResultSet rs = s.executeQuery("SELECT 1+1")) {
             Assertions.assertTrue(rs.next());

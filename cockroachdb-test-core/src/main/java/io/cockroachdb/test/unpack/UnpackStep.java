@@ -2,6 +2,7 @@ package io.cockroachdb.test.unpack;
 
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.TestContext;
+import io.cockroachdb.test.base.Constants;
 import io.cockroachdb.test.base.Step;
 import io.cockroachdb.test.base.StepException;
 import io.cockroachdb.test.base.StepIOException;
@@ -19,10 +20,8 @@ public class UnpackStep implements Step {
     @Override
     public void setUp(TestContext testContext, Cockroach cockroach) throws StepException {
         Path tempFile = testContext.get(TestContext.BINARY_PATH, Path.class);
-        String mimeType = testContext
-                .get(TestContext.MIME_TYPE, String.class);
-
-        Path destination = Paths.get(OperatingSystem.TEMP_DIR).resolve("cockroach_test");
+        String mimeType = testContext.get(TestContext.MIME_TYPE, String.class);
+        Path destination = OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION);
 
         logger.info("Unpacking CockroachDB binary: {}", tempFile);
 
@@ -35,10 +34,11 @@ public class UnpackStep implements Step {
 
     @Override
     public void cleanUp(TestContext testContext, Cockroach cockroach) throws StepException {
-        Path destination = Paths.get(OperatingSystem.TEMP_DIR).resolve("cockroach_test");
+        Path destination = OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION);
 
         if (!Files.isDirectory(destination)) {
-            throw new StepIOException("Not a directory: " + destination);
+            logger.debug("Nothing to clean up: {}", destination);
+            return;
         }
 
         logger.info("Cleaning up CockroachDB binaries: {}", destination);

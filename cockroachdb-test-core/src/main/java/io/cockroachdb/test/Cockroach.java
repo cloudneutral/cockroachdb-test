@@ -1,6 +1,6 @@
 package io.cockroachdb.test;
 
-import io.cockroachdb.test.download.DefaultBinaryResolver;
+import io.cockroachdb.test.download.DefaultURLResolver;
 
 import java.lang.annotation.*;
 
@@ -34,10 +34,14 @@ public @interface Cockroach {
     }
 
     /**
+     * Use experimental binaries for os/x platform.
+     */
+    boolean experimental() default false;
+
+    /**
      * Defines the download URL resolver class.
      */
-    Class<? extends BinaryResolver> binaryResolver() default DefaultBinaryResolver.class;
-
+    Class<? extends URLResolver> binaryResolver() default DefaultURLResolver.class;
     /**
      * Determines if downloaded binaries should be cached locally or not between test runs.
      * Uses conditional HTTP cache header directives if retained.
@@ -65,7 +69,22 @@ public @interface Cockroach {
     DemoFlags demoFlags() default @DemoFlags(global = true, nodes = 9);
 
     /**
-     * Defines a semicolon separated list of SQL statements to execute for initialization.
+     * Defines a list of SQL statements to execute for initialization.
      */
-    String initSQL() default "";
+    String[] initSQL() default {};
+
+    /**
+     * Maximum duration in seconds to wait for node startup before giving up.
+     */
+    int nodeStartupWaitSeconds() default 15;
+
+    /**
+     * Minimum duration in seconds to wait for node shutdown.
+     */
+    int nodeShutdownWaitSeconds() default 5;
+
+    /**
+     * If non-empty, redirect Cockroach process stderr and stdout to the given file in platforms temp dir.
+     */
+    String redirectProcessOutputToFile() default "";
 }

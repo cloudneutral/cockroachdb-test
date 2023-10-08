@@ -1,12 +1,14 @@
 package io.cockroachdb.test.util;
 
 import java.io.PrintWriter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
 public abstract class OperatingSystem {
-    public static final String TEMP_DIR = System.getProperty("java.io.tmpdir");
+    public static final Path TEMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"));
 
     public static final String OS_NAME = System.getProperty("os.name").toLowerCase(Locale.ENGLISH);
 

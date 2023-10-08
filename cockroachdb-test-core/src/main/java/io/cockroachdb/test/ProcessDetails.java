@@ -1,18 +1,18 @@
 package io.cockroachdb.test;
 
 /**
- * Value object for details around the local CockroachDB process that
- * follows the test lifecycle. Its either injected via reflection to the
- * test instance (if there's a setCockroachDetails method) or it can
+ * Value object with details around the local CockroachDB process that
+ * follows the test lifecycle. It's either injected via reflection to the
+ * test instance (if there's a setProcessDetails method) or it can
  * be located through the test context.
  */
-public class CockroachDetails {
+public class ProcessDetails {
     public static Builder builder() {
         return new Builder();
     }
 
     public static final class Builder {
-        private final CockroachDetails instance = new CockroachDetails();
+        private final ProcessDetails instance = new ProcessDetails();
 
         public Builder withConnectionURL(String connectionURL) {
             instance.connectionURL = connectionURL;
@@ -49,7 +49,7 @@ public class CockroachDetails {
             return this;
         }
 
-        public CockroachDetails build() {
+        public ProcessDetails build() {
             return instance;
         }
     }

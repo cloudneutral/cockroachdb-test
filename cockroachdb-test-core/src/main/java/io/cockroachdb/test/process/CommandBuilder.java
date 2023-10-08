@@ -1,14 +1,13 @@
 package io.cockroachdb.test.process;
 
-import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.DemoFlags;
-import io.cockroachdb.test.StartFlags;
-import io.cockroachdb.test.util.OperatingSystem;
-import io.cockroachdb.test.util.StringUtils;
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.cockroachdb.test.Cockroach;
+import io.cockroachdb.test.DemoFlags;
+import io.cockroachdb.test.StartFlags;
+import io.cockroachdb.test.util.StringUtils;
 
 public abstract class CommandBuilder {
     private CommandBuilder() {
@@ -89,9 +88,6 @@ public abstract class CommandBuilder {
         List<String> commands = new ArrayList<>();
         commands.add(executable.toAbsolutePath().toString());
         commands.add("start-single-node");
-        if (!OperatingSystem.isWindows() && flags.background()) {
-            commands.add("--background");
-        }
         if (StringUtils.hasLength(flags.cache())) {
             commands.add("--cache=" + flags.cache());
         }

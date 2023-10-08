@@ -7,6 +7,7 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
@@ -33,8 +34,8 @@ public class TarExtractor implements Extractor {
             }
         }
 
-        boolean isGzip = mimeType.equals("application/x-gzip")
-                || mimeType.equals("application/gzip");
+        boolean isGzip = Objects.equals(mimeType, "application/x-gzip")
+                || Objects.equals(mimeType, "application/gzip");
 
         InputStream archiveStream = Files.newInputStream(archive);
 

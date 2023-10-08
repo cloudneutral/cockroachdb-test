@@ -1,12 +1,11 @@
-package io.cockroachdb.test.plugin;
+package io.cockroachdb.test.base;
 
-import io.cockroachdb.test.base.Step;
+import java.util.List;
+
 import io.cockroachdb.test.download.DownloadStep;
 import io.cockroachdb.test.init.InitStep;
 import io.cockroachdb.test.process.ProcessStep;
 import io.cockroachdb.test.unpack.UnpackStep;
-
-import java.util.List;
 
 public abstract class StandardSteps {
     public static final List<Step> LIST

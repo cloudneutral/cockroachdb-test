@@ -1,7 +1,7 @@
 package io.cockroachdb.test.junit4;
 
 import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.plugin.StandardSteps;
+import io.cockroachdb.test.base.StandardSteps;
 import io.cockroachdb.test.base.Step;
 import io.cockroachdb.test.util.OperatingSystem;
 import org.junit.rules.ExternalResource;
@@ -31,7 +31,7 @@ public class CockroachExtension extends ExternalResource {
             Cockroach cockroach = clazz.getAnnotation(Cockroach.class);
             if (cockroach == null) {
                 throw new IllegalStateException(
-                        "Expected @CockroachSetup type-level annotation for " + clazz.getName());
+                        "Expected @Cockroach type-level annotation for " + clazz.getName());
             }
             return new CockroachExtension(cockroach);
         }
@@ -62,17 +62,19 @@ public class CockroachExtension extends ExternalResource {
         logger.debug("Host O/S metadata:\n" + sw);
 
         for (Step step : steps) {
-            logger.debug("Running setup step: {}", step);
+            logger.debug("Running step setup: {}", step.getClass().getName());
             step.setUp(context, cockroach);
         }
     }
 
     @Override
     protected void after() {
+        logger.info("Teardown CockroachDB JUnit4 extension");
+
         Collections.reverse(steps);
 
         for (Step step : steps) {
-            logger.debug("Running cleanup step: {}", step);
+            logger.debug("Running step cleanup: {}", step.getClass().getName());
             step.cleanUp(context, cockroach);
         }
     }

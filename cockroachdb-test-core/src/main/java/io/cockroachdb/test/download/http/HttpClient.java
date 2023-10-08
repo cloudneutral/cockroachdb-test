@@ -85,19 +85,6 @@ public class HttpClient {
         }
     }
 
-    public HttpResponse head(String url) throws HttpClientException {
-        try {
-            return createRequest(url, HttpMethod.HEAD).execute();
-        } catch (IOException ex) {
-            throw newHttpAccessException(HttpMethod.HEAD, url, ex);
-        }
-    }
-
-    public HttpResponse executeMethod(String url, HttpMethod method)
-            throws HttpClientException {
-        return executeMethod(url, method, null);
-    }
-
     public HttpResponse executeMethod(String url,
                                       HttpMethod method,
                                       HttpRequestCallback callback)

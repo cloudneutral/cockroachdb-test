@@ -11,7 +11,8 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface StartFlags {
     // --background
-    boolean background() default true;
+    @Deprecated(forRemoval = true)
+    boolean background() default false;
 
     // --cache
     String cache() default "64MiB";

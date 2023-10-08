@@ -1,8 +1,9 @@
 package io.cockroachdb.test.download;
 
-import io.cockroachdb.test.BinaryResolver;
+import io.cockroachdb.test.URLResolver;
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.TestContext;
+import io.cockroachdb.test.download.http.HttpClientException;
 import io.cockroachdb.test.download.http.HttpEntity;
 import io.cockroachdb.test.download.http.HttpResponse;
 import io.cockroachdb.test.base.Step;
@@ -43,7 +44,7 @@ public class DownloadStep implements Step {
 
     private static URL resolveBinaryURL(Cockroach cockroach) {
         try {
-            BinaryResolver resolver = cockroach.binaryResolver()
+            URLResolver resolver = cockroach.binaryResolver()
                     .getDeclaredConstructor().newInstance();
             return resolver.resolveBinaryURL(cockroach);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
@@ -56,7 +57,7 @@ public class DownloadStep implements Step {
     public void setUp(TestContext testContext, Cockroach cockroach) {
         URL binaryURL = resolveBinaryURL(cockroach);
         Path fileName = Paths.get(binaryURL.getFile()).getFileName();
-        Path tempFile = Paths.get(OperatingSystem.TEMP_DIR).resolve(fileName);
+        Path tempFile = OperatingSystem.TEMP_DIR.resolve(fileName);
         Path etagFile = Paths.get(tempFile + ".etag");
 
         try {
@@ -127,6 +128,8 @@ public class DownloadStep implements Step {
                     ByteFormat.byteCountToDisplaySize(responseEntity.getContentLength()),
                     mimeTye,
                     lastEtag);
+        } catch (HttpClientException e) {
+            throw new StepIOException("HTTP error downloading binary", e);
         } catch (IOException e) {
             throw new StepIOException("I/O error downloading binary", e);
         }

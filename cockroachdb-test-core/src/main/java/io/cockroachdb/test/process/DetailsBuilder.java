@@ -1,11 +1,11 @@
 package io.cockroachdb.test.process;
 
-import io.cockroachdb.test.CockroachDetails;
+import io.cockroachdb.test.ProcessDetails;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class CockroachDetailsBuilder {
+public abstract class DetailsBuilder {
     // 1: user
     // 2: pwd
     // 3: host
@@ -16,8 +16,8 @@ public abstract class CockroachDetailsBuilder {
             "postgresql:(?=.)(?:/$|//(?:(?<user>[^:\\n\\r]+):(?<pass>[^@\\n\\r]+)@)?(?<host>[^:/\\r\\n]+)(?::(?<port>\\d+))?/)(?<uri>.*)?",
             Pattern.CASE_INSENSITIVE);
 
-    public static CockroachDetails fromConnectionURL(String connectionURL) {
-        CockroachDetails.Builder builder = CockroachDetails.builder();
+    public static ProcessDetails fromConnectionURL(String connectionURL) {
+        ProcessDetails.Builder builder = ProcessDetails.builder();
         builder.withConnectionURL(connectionURL);
 
         Matcher m = CONNECTION_URL_PATTERN.matcher(connectionURL);
@@ -50,6 +50,6 @@ public abstract class CockroachDetailsBuilder {
         return builder.build();
     }
 
-    private CockroachDetailsBuilder() {
+    private DetailsBuilder() {
     }
 }

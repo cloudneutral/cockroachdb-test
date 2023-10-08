@@ -5,10 +5,6 @@ public class StepIOException extends StepException {
         super(cause);
     }
 
-    public StepIOException(String message) {
-        super(message);
-    }
-
     public StepIOException(String message, Throwable cause) {
         super(message, cause);
     }
