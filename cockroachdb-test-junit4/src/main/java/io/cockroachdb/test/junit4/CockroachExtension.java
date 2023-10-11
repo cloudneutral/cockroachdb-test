@@ -1,8 +1,11 @@
 package io.cockroachdb.test.junit4;
 
 import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.base.StandardSteps;
 import io.cockroachdb.test.base.Step;
+import io.cockroachdb.test.download.DownloadStep;
+import io.cockroachdb.test.init.InitStep;
+import io.cockroachdb.test.process.ProcessStep;
+import io.cockroachdb.test.unpack.UnpackStep;
 import io.cockroachdb.test.util.OperatingSystem;
 import org.junit.rules.ExternalResource;
 import org.slf4j.Logger;
@@ -41,9 +44,10 @@ public class CockroachExtension extends ExternalResource {
 
     private final Cockroach cockroach;
 
-    private final List<Step> steps = new ArrayList<>(StandardSteps.LIST);
+    private final List<Step> steps = new ArrayList<>(
+            List.of(new DownloadStep(), new UnpackStep(), new ProcessStep(), new InitStep()));
 
-    private final ExtensionStoreContext context = ExtensionStoreContext.createInstance();
+    private final ExtensionStoreContext context = ExtensionStoreContext.of();
 
     public CockroachExtension(Cockroach cockroach) {
         this.cockroach = cockroach;

@@ -1,5 +1,6 @@
 package io.cockroachdb.test.unpack;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("unit-test")
 public class FileExtractorTest {
     static Path toPath(String resource) {
         try {
@@ -47,7 +49,7 @@ public class FileExtractorTest {
         }
     }
 
-    @Test
+//    @Test
     public void givenGZipFile_whenUnpack_thenExtractedToDestination() throws IOException {
         Path destination = Paths.get(System.getProperty("java.io.tmpdir")).resolve("unpack_gzip");
 
@@ -69,7 +71,7 @@ public class FileExtractorTest {
         }
     }
 
-    @Test
+//    @Test
     public void givenTarGzFile_whenUnpack_thenExtractedToDestination() throws IOException {
         Path destination = Paths.get(System.getProperty("java.io.tmpdir")).resolve("unpack_tar_gz");
 

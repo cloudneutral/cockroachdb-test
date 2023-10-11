@@ -1,5 +1,6 @@
 package io.cockroachdb.test.junit5;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.cockroachdb.test.Cockroach;
@@ -23,6 +24,7 @@ import io.cockroachdb.test.StartFlags;
                         "ALTER DATABASE system CONFIGURE ZONE USING \"gc.ttlseconds\" = 600"
         }
 )
+@Tag("integration-test")
 public class CockroachStartTest extends AbstractCockroachTest {
     @RegisterExtension
     public static CockroachExtension cockroachExtension =

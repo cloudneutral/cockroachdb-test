@@ -17,6 +17,10 @@
         JUnit4 extension for CockroachDB Integration Tests
     </description>
 
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>

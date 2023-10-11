@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import io.cockroachdb.test.download.DownloadStep;
+import io.cockroachdb.test.init.InitStep;
+import io.cockroachdb.test.process.ProcessStep;
+import io.cockroachdb.test.unpack.UnpackStep;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -17,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.ProcessDetails;
-import io.cockroachdb.test.base.StandardSteps;
 import io.cockroachdb.test.base.Step;
 import io.cockroachdb.test.util.OperatingSystem;
 
@@ -51,7 +54,8 @@ public class CockroachExtension
 
     private final Cockroach cockroach;
 
-    private final List<Step> steps = new ArrayList<>(StandardSteps.LIST);
+    private final List<Step> steps = new ArrayList<>(
+            List.of(new DownloadStep(), new UnpackStep(), new ProcessStep(), new InitStep()));
 
     public CockroachExtension(Cockroach cockroach) {
         this.cockroach = cockroach;

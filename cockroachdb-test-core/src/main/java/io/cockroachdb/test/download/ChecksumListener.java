@@ -28,7 +28,7 @@ public abstract class ChecksumListener implements DownloadListener {
     @Override
     public void afterDownload(HttpResponse response) {
         if (totalBytesRead > 0) {
-            verifyChecksum(response, new String(Hex.encode(messageDigest.digest())));
+            verifyChecksum(response, Hex.toHex(messageDigest.digest()));
         }
     }
 

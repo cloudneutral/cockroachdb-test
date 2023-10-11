@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,7 @@ import com.google.gson.GsonBuilder;
 
 import io.cockroachdb.test.download.FileEntityReader;
 
-
+@Tag("integration-test")
 public class HttpClientTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

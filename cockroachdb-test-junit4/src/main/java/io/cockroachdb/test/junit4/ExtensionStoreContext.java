@@ -6,7 +6,7 @@ import java.util.Map;
 import io.cockroachdb.test.TestContext;
 
 public class ExtensionStoreContext implements TestContext {
-    public static ExtensionStoreContext createInstance() {
+    public static ExtensionStoreContext of() {
         return new ExtensionStoreContext();
     }
 

@@ -6,6 +6,7 @@ import io.cockroachdb.test.download.http.HttpRequest;
 import io.cockroachdb.test.download.http.HttpResponse;
 import io.cockroachdb.test.util.ByteFormat;
 import io.cockroachdb.test.util.TimeFormat;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Tag("integration-test")
 public class FileDownloadTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
