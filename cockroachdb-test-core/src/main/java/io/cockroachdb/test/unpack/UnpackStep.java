@@ -2,10 +2,10 @@ package io.cockroachdb.test.unpack;
 
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.TestContext;
-import io.cockroachdb.test.base.Constants;
-import io.cockroachdb.test.base.Step;
-import io.cockroachdb.test.base.StepException;
-import io.cockroachdb.test.base.StepIOException;
+import io.cockroachdb.test.Constants;
+import io.cockroachdb.test.Step;
+import io.cockroachdb.test.StepException;
+import io.cockroachdb.test.StepIOException;
 import io.cockroachdb.test.util.OperatingSystem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +19,9 @@ public class UnpackStep implements Step {
 
     @Override
     public void setUp(TestContext testContext, Cockroach cockroach) throws StepException {
-        Path tempFile = testContext.get(TestContext.BINARY_PATH, Path.class);
-        String mimeType = testContext.get(TestContext.MIME_TYPE, String.class);
-        Path destination = OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION);
+        Path tempFile = testContext.get(Constants.BINARY_PATH_KEY, Path.class);
+        String mimeType = testContext.get(Constants.MIME_TYPE, String.class);
+        Path destination = OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION_PATH);
 
         logger.info("Unpacking CockroachDB binary: {}", tempFile);
 
@@ -34,7 +34,7 @@ public class UnpackStep implements Step {
 
     @Override
     public void cleanUp(TestContext testContext, Cockroach cockroach) throws StepException {
-        Path destination = OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION);
+        Path destination = OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION_PATH);
 
         if (!Files.isDirectory(destination)) {
             logger.debug("Nothing to clean up: {}", destination);

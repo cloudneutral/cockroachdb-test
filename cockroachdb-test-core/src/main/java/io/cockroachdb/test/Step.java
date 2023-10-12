@@ -1,7 +1,4 @@
-package io.cockroachdb.test.base;
-
-import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.TestContext;
+package io.cockroachdb.test;
 
 public interface Step {
     void setUp(TestContext testContext, Cockroach cockroach) throws StepException;

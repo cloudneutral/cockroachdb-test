@@ -9,7 +9,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.env.PropertySource;
 import org.springframework.lang.NonNull;
 
-import io.cockroachdb.test.base.EmbeddedCockroach;
+import io.cockroachdb.test.EmbeddedCockroach;
 import jakarta.annotation.Nullable;
 
 /**

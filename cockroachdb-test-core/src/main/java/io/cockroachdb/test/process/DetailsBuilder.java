@@ -5,7 +5,7 @@ import io.cockroachdb.test.ProcessDetails;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class DetailsBuilder {
+abstract class DetailsBuilder {
     // 1: user
     // 2: pwd
     // 3: host

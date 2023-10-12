@@ -1,29 +1,22 @@
-package io.cockroachdb.test.base;
+package io.cockroachdb.test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.ProcessDetails;
-import io.cockroachdb.test.TestContext;
 import io.cockroachdb.test.download.DownloadStep;
 import io.cockroachdb.test.init.InitStep;
 import io.cockroachdb.test.process.ProcessStep;
 import io.cockroachdb.test.unpack.UnpackStep;
 
+import java.util.*;
+
 /**
  * A thread-bound helper to manage an embedded CockroachDB instance.
  */
 public class EmbeddedCockroach {
-    public static Cockroach findCockroachAnnotation(Class<?> mainClass) {
-        Cockroach cockroach = mainClass.getAnnotation(Cockroach.class);
+    public static Cockroach findCockroachAnnotation(Class<?> testClass) {
+        Cockroach cockroach = testClass.getAnnotation(Cockroach.class);
         if (cockroach == null) {
             throw new IllegalStateException(
                     "Expected @Cockroach type-level annotation for " +
-                            mainClass.getName());
+                            testClass.getName());
         }
         return cockroach;
     }
@@ -70,6 +63,6 @@ public class EmbeddedCockroach {
     }
 
     public ProcessDetails getProcessDetails() {
-        return testContext.get(TestContext.COCKROACH_DETAILS, ProcessDetails.class);
+        return testContext.get(Constants.PROCESS_DETAILS, ProcessDetails.class);
     }
 }

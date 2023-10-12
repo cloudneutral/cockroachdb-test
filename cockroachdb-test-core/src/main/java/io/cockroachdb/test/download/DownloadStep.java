@@ -6,9 +6,9 @@ import io.cockroachdb.test.TestContext;
 import io.cockroachdb.test.download.http.HttpClientException;
 import io.cockroachdb.test.download.http.HttpEntity;
 import io.cockroachdb.test.download.http.HttpResponse;
-import io.cockroachdb.test.base.Step;
-import io.cockroachdb.test.base.StepException;
-import io.cockroachdb.test.base.StepIOException;
+import io.cockroachdb.test.Step;
+import io.cockroachdb.test.StepException;
+import io.cockroachdb.test.StepIOException;
 import io.cockroachdb.test.util.ByteFormat;
 import io.cockroachdb.test.util.OperatingSystem;
 import io.cockroachdb.test.util.TimeFormat;
@@ -23,8 +23,8 @@ import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static io.cockroachdb.test.TestContext.BINARY_PATH;
-import static io.cockroachdb.test.TestContext.MIME_TYPE;
+import static io.cockroachdb.test.Constants.BINARY_PATH_KEY;
+import static io.cockroachdb.test.Constants.MIME_TYPE;
 
 /**
  * Test step that downloads the CockroachDB binary over HTTP.
@@ -114,7 +114,7 @@ public class DownloadStep implements Step {
             Files.writeString(etagFile, lastEtag);
 
             // Put in context
-            testContext.put(BINARY_PATH, responseEntity.getBody());
+            testContext.put(BINARY_PATH_KEY, responseEntity.getBody());
             testContext.put(MIME_TYPE, mimeTye);
 
             // Wrap-up
@@ -162,7 +162,7 @@ public class DownloadStep implements Step {
         }
 
         try {
-            Path tempFile = testContext.get(BINARY_PATH, Path.class);
+            Path tempFile = testContext.get(BINARY_PATH_KEY, Path.class);
             logger.info("Delete CockroachDB binary: {}", tempFile);
             if (tempFile != null && Files.isRegularFile(tempFile)) {
                 Files.deleteIfExists(tempFile);

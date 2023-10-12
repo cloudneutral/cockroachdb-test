@@ -1,4 +1,4 @@
-package io.cockroachdb.test.base;
+package io.cockroachdb.test;
 
 public abstract class StepException extends RuntimeException {
     public StepException(String message) {

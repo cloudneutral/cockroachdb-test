@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.cockroachdb.test.ProcessDetails;
-import io.cockroachdb.test.base.EmbeddedCockroach;
+import io.cockroachdb.test.EmbeddedCockroach;
 
 public abstract class AbstractCockroachTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());

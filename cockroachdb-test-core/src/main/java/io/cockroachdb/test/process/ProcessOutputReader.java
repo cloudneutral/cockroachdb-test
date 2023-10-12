@@ -6,9 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.function.Consumer;
 
-import io.cockroachdb.test.base.StepIOException;
+import io.cockroachdb.test.StepIOException;
 
-public class ProcessOutputReader implements Runnable {
+class ProcessOutputReader implements Runnable {
     private final InputStream is;
 
     private final Consumer<String> callback;

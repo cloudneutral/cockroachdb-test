@@ -9,7 +9,7 @@ import io.cockroachdb.test.DemoFlags;
 import io.cockroachdb.test.StartFlags;
 import io.cockroachdb.test.util.StringUtils;
 
-public abstract class CommandBuilder {
+abstract class CommandBuilder {
     private CommandBuilder() {
     }
 

@@ -1,4 +1,4 @@
-package io.cockroachdb.test.base;
+package io.cockroachdb.test;
 
 public class StepIOException extends StepException {
     public StepIOException(Throwable cause) {

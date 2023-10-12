@@ -21,15 +21,15 @@ import org.slf4j.LoggerFactory;
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.ProcessDetails;
 import io.cockroachdb.test.TestContext;
-import io.cockroachdb.test.base.Constants;
-import io.cockroachdb.test.base.Step;
-import io.cockroachdb.test.base.StepException;
-import io.cockroachdb.test.base.StepIOException;
-import io.cockroachdb.test.base.StepProcessException;
+import io.cockroachdb.test.Constants;
+import io.cockroachdb.test.Step;
+import io.cockroachdb.test.StepException;
+import io.cockroachdb.test.StepIOException;
+import io.cockroachdb.test.StepProcessException;
 import io.cockroachdb.test.util.OperatingSystem;
 import io.cockroachdb.test.util.StringUtils;
 
-import static io.cockroachdb.test.TestContext.COCKROACH_DETAILS;
+import static io.cockroachdb.test.Constants.PROCESS_DETAILS;
 
 public class ProcessStep implements Step {
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -47,7 +47,7 @@ public class ProcessStep implements Step {
             throw new UnsupportedOperationException("Expected listening file URL parameter");
         }
 
-        Path executable = findExecutable(OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION));
+        Path executable = findExecutable(OperatingSystem.TEMP_DIR.resolve(Constants.DESTINATION_PATH));
         if (executable == null) {
             throw new StepProcessException("Unable to find CockroachDB executable");
         }
@@ -100,7 +100,7 @@ public class ProcessStep implements Step {
 
         final ProcessDetails details = DetailsBuilder.fromConnectionURL(connectionURL);
 
-        testContext.put(COCKROACH_DETAILS, details);
+        testContext.put(PROCESS_DETAILS, details);
 
         logger.info("""
                         Node is ready!

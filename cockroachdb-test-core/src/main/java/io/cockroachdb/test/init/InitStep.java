@@ -6,15 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 
+import io.cockroachdb.test.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.cockroachdb.test.Cockroach;
-import io.cockroachdb.test.ProcessDetails;
-import io.cockroachdb.test.TestContext;
-import io.cockroachdb.test.base.Step;
-import io.cockroachdb.test.base.StepException;
-import io.cockroachdb.test.base.StepSQLException;
 
 public class InitStep implements Step {
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -26,16 +20,16 @@ public class InitStep implements Step {
         }
 
         ProcessDetails processDetails
-                = testContext.get(TestContext.COCKROACH_DETAILS, ProcessDetails.class);
+                = testContext.get(Constants.PROCESS_DETAILS, ProcessDetails.class);
 
-        try (Connection db = DriverManager.getConnection(
+        try (Connection connection = DriverManager.getConnection(
                 processDetails.getJdbcURL(),
                 processDetails.getUser(),
                 processDetails.getPassword())) {
-            db.setAutoCommit(true);
+            connection.setAutoCommit(true);
 
             Arrays.stream(cockroach.initSQL()).forEach(sql -> {
-                try (Statement s = db.createStatement()) {
+                try (Statement s = connection.createStatement()) {
                     logger.debug("Executing [{}]", sql);
                     s.executeUpdate(sql);
                 } catch (SQLException e) {

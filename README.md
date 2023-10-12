@@ -35,6 +35,7 @@ See [MIT](LICENSE.txt) license for terms and conditions.
 
 * JUnit4
 * JUnit5
+* Spring3
 * Linux, Mac and Windows
 * CockroachDB Dedicated v23.1 or later
 * Java17+ LTS SDK

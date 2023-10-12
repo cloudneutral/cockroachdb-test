@@ -1,7 +1,7 @@
 package io.cockroachdb.test.download;
 
 import io.cockroachdb.test.download.http.*;
-import io.cockroachdb.test.base.StepIOException;
+import io.cockroachdb.test.StepIOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.ProcessDetails;
-import io.cockroachdb.test.base.EmbeddedCockroach;
+import io.cockroachdb.test.EmbeddedCockroach;
 import io.cockroachdb.test.util.OperatingSystem;
 
 public class CockroachExtension
