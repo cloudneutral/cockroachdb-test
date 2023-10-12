@@ -12,17 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.cockroachdb.test.ProcessDetails;
-import io.cockroachdb.test.TestContext;
+import io.cockroachdb.test.base.EmbeddedCockroach;
 
 public abstract class AbstractCockroachTest {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    protected abstract CockroachExtension getExtension();
-
     @Test
     public void whenCockroachStarted_thenSayHelloAndWait() throws SQLException {
         ProcessDetails processDetails
-                = getExtension().getContext().get(TestContext.COCKROACH_DETAILS, ProcessDetails.class);
+                = EmbeddedCockroach.getInstance().getProcessDetails();
 
         Assert.assertNotNull(processDetails);
 

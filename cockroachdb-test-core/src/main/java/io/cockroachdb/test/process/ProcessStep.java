@@ -140,13 +140,12 @@ public class ProcessStep implements Step {
         return executableRef.get();
     }
 
-    private String waitForNodeReady(Path workingDir, String listeningURLFile, int delay) {
-        Path urlFile = workingDir.resolve(listeningURLFile);
-
-        for (Instant deadline = Instant.now().plus(Duration.ofSeconds(delay));
+    private String waitForNodeReady(Path workingDir, String listeningURLFile, int delaySeconds) {
+        for (Instant deadline = Instant.now().plus(Duration.ofSeconds(delaySeconds));
              Instant.now().isBefore(deadline); ) {
             try {
-                TimeUnit.MILLISECONDS.sleep(500);
+                TimeUnit.MILLISECONDS.sleep(5000);
+                Path urlFile = workingDir.resolve(listeningURLFile);
                 if (Files.isReadable(urlFile)) {
                     return Files.readString(urlFile).trim();
                 }

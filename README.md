@@ -142,6 +142,74 @@ public class CockroachJunit5Test {
 }
 ```
 
+## Spring Boot Example
+
+Add this dependency to your `pom.xml` file if you are using Spring 3.x with JUnit5:
+
+```xml
+<dependency>
+    <groupId>io.cockroachdb.test</groupId>
+    <artifactId>cockroachdb-test-spring3</artifactId>
+    <version>{version}</version>
+</dependency>
+```
+
+The CockroachDB process needs to be started before the datasource bean is initialized, which presents
+a small dependency management challenge. For that reason we can't just use the test lifecycle events.
+The JDBC connection URL `spring.datasource.url` for the embedded instance must also 
+be injected to the datasource prior to creation.
+
+This can all be handled by the `ApplicationEnvironmentPreparedListener` that listens to the 
+`ApplicationEnvironmentPreparedEvent` application event at spring context startup time. To use it, 
+simply add the `EmbeddedCockroachLoader` context loader to your integration test:
+
+```java
+@SpringBootTest(classes = DemoApp.class)
+@ContextConfiguration(loader = EmbeddedCockroachLoader.class)
+public class EmbeddedCockroachTest {
+    
+}
+```
+
+A more complete example:
+
+```java
+@Tag("integration-test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@SpringBootTest
+@ContextConfiguration(loader = EmbeddedCockroachLoader.class)
+@Cockroach(
+        version = "v23.1.10",
+        architecture = Cockroach.Architecture.arm64,
+        command = Cockroach.Command.start_single_node,
+        experimental = true,
+        startFlags = @StartFlags(listenAddr = "localhost"),
+        initSQL = {
+                "SET CLUSTER SETTING kv.raft_log.disable_synchronization_unsafe = true",
+                "SET CLUSTER SETTING kv.range_merge.queue_interval = '50ms'",
+                "SET CLUSTER SETTING jobs.registry.interval.gc = '30s'",
+                "SET CLUSTER SETTING jobs.registry.interval.cancel = '180s'",
+                "SET CLUSTER SETTING jobs.retention_time = '15s'",
+                "SET CLUSTER SETTING sql.stats.automatic_collection.enabled = false",
+                "SET CLUSTER SETTING kv.range_split.by_load_merge_delay = '5s'",
+                "ALTER RANGE default CONFIGURE ZONE USING \"gc.ttlseconds\" = 600",
+                "ALTER DATABASE system CONFIGURE ZONE USING \"gc.ttlseconds\" = 600"
+        }
+)
+public class EmbeddedCockroachTest {
+    @Autowired
+    private DataSource dataSource;
+
+    @Test
+    public void whenContextStarted_thenPrintDatabaseVersion() {
+        logger.info("Connected to: {}",
+                new JdbcTemplate(dataSource)
+                        .queryForObject("select version()", String.class));
+    }
+}
+```
+
 ## Getting Help
 
 ### Reporting Issues

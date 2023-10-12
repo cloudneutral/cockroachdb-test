@@ -3,14 +3,7 @@ package io.cockroachdb.test.junit5;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import io.cockroachdb.test.download.DownloadStep;
-import io.cockroachdb.test.init.InitStep;
-import io.cockroachdb.test.process.ProcessStep;
-import io.cockroachdb.test.unpack.UnpackStep;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -21,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.ProcessDetails;
-import io.cockroachdb.test.base.Step;
+import io.cockroachdb.test.base.EmbeddedCockroach;
 import io.cockroachdb.test.util.OperatingSystem;
 
 public class CockroachExtension
@@ -41,30 +34,27 @@ public class CockroachExtension
         }
 
         public CockroachExtension build() {
-            Cockroach cockroach = clazz.getAnnotation(Cockroach.class);
-            if (cockroach == null) {
-                throw new IllegalStateException(
-                        "Expected @Cockroach type-level annotation for " + clazz.getName());
-            }
-            return new CockroachExtension(cockroach);
+            return new CockroachExtension(clazz);
         }
     }
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final Cockroach cockroach;
+    private final Class<?> testClass;
 
-    private final List<Step> steps = new ArrayList<>(
-            List.of(new DownloadStep(), new UnpackStep(), new ProcessStep(), new InitStep()));
-
-    public CockroachExtension(Cockroach cockroach) {
-        this.cockroach = cockroach;
+    public CockroachExtension(Class<?> testClass) {
+        Cockroach cockroach = testClass.getAnnotation(Cockroach.class);
+        if (cockroach == null) {
+            throw new IllegalStateException(
+                    "Expected @Cockroach type-level annotation for " + testClass.getName());
+        }
+        this.testClass = testClass;
     }
 
     @Override
     public void postProcessTestInstance(Object testInstance, ExtensionContext context) throws Exception {
         ProcessDetails processDetails =
-                context.getStore(ExtensionContext.Namespace.GLOBAL).get("cockroachDetails", ProcessDetails.class);
+                EmbeddedCockroach.getInstance().getProcessDetails();
         try {
             testInstance.getClass()
                     .getMethod("setProcessDetails", ProcessDetails.class)
@@ -85,10 +75,7 @@ public class CockroachExtension
         OperatingSystem.print(new PrintWriter(sw));
         logger.debug("Host O/S metadata:\n" + sw);
 
-        for (Step step : steps) {
-            logger.debug("Running step setup: {}", step.getClass().getName());
-            step.setUp(ExtensionStoreContext.of(extensionContext), cockroach);
-        }
+        EmbeddedCockroach.getInstance().start(testClass);
     }
 
     @Override
@@ -101,11 +88,6 @@ public class CockroachExtension
         logger.info("Teardown CockroachDB JUnit5 extension:\n{}",
                 extensionContext.getDisplayName());
 
-        Collections.reverse(steps);
-
-        for (Step step : steps) {
-            logger.debug("Running step cleanup: {}", step.getClass().getName());
-            step.cleanUp(ExtensionStoreContext.of(extensionContext), cockroach);
-        }
+        EmbeddedCockroach.getInstance().stop(testClass);
     }
 }

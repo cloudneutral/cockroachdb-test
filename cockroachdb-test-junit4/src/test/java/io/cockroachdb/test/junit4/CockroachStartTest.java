@@ -28,9 +28,4 @@ public class CockroachStartTest extends AbstractCockroachTest {
             CockroachExtension.builder()
                     .withTestClass(CockroachStartTest.class)
                     .build();
-
-    @Override
-    protected CockroachExtension getExtension() {
-        return extension;
-    }
 }
