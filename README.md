@@ -1,4 +1,4 @@
-[![Java CI with Maven](https://github.com/kai-niemi/cockroachdb-test/actions/workflows/maven.yml/badge.svg)](https://github.com/kai-niemi/cockroachdb-test/actions/workflows/maven.yml)
+[![Java CI with Maven](https://github.com/cloudneutral/cockroachdb-test/actions/workflows/maven.yml/badge.svg)](https://github.com/cloudneutral/cockroachdb-test/actions/workflows/maven.yml)
 
 # CockroachDB Test
 
@@ -72,7 +72,7 @@ Then add the Maven repository to your `pom.xml` file (alternatively in Maven's [
 <repository>
     <id>cockroachdb-test</id>
     <name>Maven Packages</name>
-    <url>https://maven.pkg.github.com/kai-niemi/cockroachdb-test</url>
+    <url>https://maven.pkg.github.com/cloudneutral/cockroachdb-test</url>
     <snapshots>
         <enabled>true</enabled>
     </snapshots>
@@ -215,12 +215,12 @@ public class EmbeddedCockroachTest {
 
 ### Reporting Issues
                                                              
-CockroachDB Test uses [GitHub](https://github.com/kai-niemi/cockroachdb-test/issues) as issue tracking system to record bugs and feature requests. 
+CockroachDB Test uses [GitHub](https://github.com/cloudneutral/cockroachdb-test/issues) as issue tracking system to record bugs and feature requests. 
 If you want to raise an issue, please follow the recommendations below:
 
-* Before you log a bug, please search the [issue tracker](https://github.com/kai-niemi/cockroachdb-test/issues) 
+* Before you log a bug, please search the [issue tracker](https://github.com/cloudneutral/cockroachdb-test/issues) 
 to see if someone has already reported the problem.
-* If the issue doesn’t exist already, [create a new issue](https://github.com/kai-niemi/cockroachdb-test/issues). 
+* If the issue doesn’t exist already, [create a new issue](https://github.com/cloudneutral/cockroachdb-test/issues). 
 * Please provide as much information as possible with the issue report, we like to know the version of Spring Data 
 that you are using and JVM version, complete stack traces and any relevant configuration information.
 * If you need to paste code, or include a stack trace format it as code using triple backtick.
@@ -256,7 +256,7 @@ brew install openjdk@17
 ### Clone the project
 
 ```bash
-git clone git@github.com:kai-niemi/cockroachdb-test.git
+git clone git@github.com:cloudneutral/cockroachdb-test.git
 cd cockroachdb-test
 ```
 

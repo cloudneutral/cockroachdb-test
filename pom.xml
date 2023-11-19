@@ -41,9 +41,9 @@
     </modules>
 
     <scm>
-        <connection>scm:git:git@github.com:kai-niemi/cockroachdb-test.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:kai-niemi/cockroachdb-test.git</developerConnection>
-        <url>https://github.com/kai-niemi/cockroachdb-test.git</url>
+        <connection>scm:git:git@github.com:cloudneutral/cockroachdb-test.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:cloudneutral/cockroachdb-test.git</developerConnection>
+        <url>https://github.com/cloudneutral/cockroachdb-test.git</url>
         <tag>HEAD</tag>
     </scm>
 
@@ -65,14 +65,14 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/kai-niemi/cockroachdb-test/issues</url>
+        <url>https://github.com/cloudneutral/cockroachdb-test/issues</url>
     </issueManagement>
 
     <distributionManagement>
         <repository>
             <id>github</id>
             <name>GitHub Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/kai-niemi/cockroachdb-test</url>
+            <url>https://maven.pkg.github.com/cloudneutral/cockroachdb-test</url>
         </repository>
     </distributionManagement>
 
