@@ -23,10 +23,10 @@ import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
 @EnableTransactionManagement(order = Ordered.LOWEST_PRECEDENCE - 1)
 @EnableAutoConfiguration
 @EnableConfigurationProperties
-@EnableJpaRepositories(basePackageClasses = DemoApp.class, enableDefaultTransactions = false)
-@ComponentScan(basePackageClasses = DemoApp.class)
+@EnableJpaRepositories(basePackageClasses = SpringApp.class, enableDefaultTransactions = false)
+@ComponentScan(basePackageClasses = SpringApp.class)
 @Configuration
-public class DemoApp {
+public class SpringApp {
     @Bean
     @Primary
     public DataSource primaryDataSource(DataSourceProperties properties) {

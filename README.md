@@ -26,12 +26,12 @@ to speed things up.
 
 ## Disclaimer
 
-This project is not officially supported by Cockroach Labs. Use of this library is entirely 
+This project is not supported by Cockroach Labs. Use of this library is entirely 
 at your own risk and Cockroach Labs makes no guarantees or warranties about its operation.
 
 See [MIT](LICENSE.txt) license for terms and conditions.
 
-## Supported Versions
+## Supported Platforms and Versions
 
 * JUnit4
 * JUnit5
@@ -101,7 +101,7 @@ used to register and configure the CockroachDB extension.
 
 ```java
 @Cockroach(
-        version = "v23.1.10",
+        version = "v23.2.1",
         architecture = Cockroach.Architecture.amd64,
         command = Cockroach.Command.demo,
         demoFlags = @DemoFlags(global = true, nodes = 9)
@@ -181,13 +181,12 @@ A more complete example:
 @SpringBootTest
 @ContextConfiguration(loader = EmbeddedCockroachLoader.class)
 @Cockroach(
-        version = "v23.1.10",
+        version = "v23.2.1",
         architecture = Cockroach.Architecture.arm64,
         command = Cockroach.Command.start_single_node,
         experimental = true,
         startFlags = @StartFlags(listenAddr = "localhost"),
         initSQL = {
-                "SET CLUSTER SETTING kv.raft_log.disable_synchronization_unsafe = true",
                 "SET CLUSTER SETTING kv.range_merge.queue_interval = '50ms'",
                 "SET CLUSTER SETTING jobs.registry.interval.gc = '30s'",
                 "SET CLUSTER SETTING jobs.registry.interval.cancel = '180s'",

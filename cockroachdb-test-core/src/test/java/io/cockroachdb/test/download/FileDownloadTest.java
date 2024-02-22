@@ -21,7 +21,7 @@ public class FileDownloadTest {
 
     @Test
     public void whenDownloadingCRDBBinary_thenWriteToTempFiles() throws Exception {
-        URL fileURL = new URL("https://binaries.cockroachdb.com/cockroach-v23.1.10.windows-6.2-amd64.zip");
+        URL fileURL = new URL("https://binaries.cockroachdb.com/cockroach-v23.2.1.windows-6.2-amd64.zip");
         String checksum = "";
 
         HttpRequest request = HttpClient.createDefault().createRequest(fileURL + ".sha256sum", HttpMethod.GET);

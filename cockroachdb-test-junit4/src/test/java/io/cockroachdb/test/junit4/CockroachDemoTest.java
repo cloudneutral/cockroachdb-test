@@ -6,7 +6,7 @@ import io.cockroachdb.test.Cockroach;
 import io.cockroachdb.test.DemoFlags;
 
 @Cockroach(
-        version = "v23.1.10",
+        version = "v23.2.1",
         architecture = Cockroach.Architecture.amd64,
         command = Cockroach.Command.demo,
         demoFlags = @DemoFlags(global = true, nodes = 9)

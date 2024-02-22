@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 @Cockroach(
-        version = "v23.1.10",
+        version = "v23.2.1",
         architecture = Cockroach.Architecture.amd64,
         command = Cockroach.Command.demo,
         demoFlags = @DemoFlags(global = true, nodes = 9)

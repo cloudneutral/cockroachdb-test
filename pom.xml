@@ -26,11 +26,12 @@
         <maven.compiler.xlint.extras/>
         <groups>unit-test</groups>
 
-        <postgresql.version>42.6.0</postgresql.version>
-        <slf4j.version>2.0.6</slf4j.version>
-        <logback.version>1.4.5</logback.version>
-        <junit-jupiter.version>5.10.0</junit-jupiter.version>
+        <postgresql.version>42.7.1</postgresql.version>
+        <slf4j.version>2.0.11</slf4j.version>
+        <logback.version>1.4.14</logback.version>
+        <junit-jupiter.version>5.10.1</junit-jupiter.version>
         <junit.version>4.13.2</junit.version>
+        <spring-boot.version>3.2.2</spring-boot.version>
     </properties>
 
     <modules>
@@ -188,7 +189,7 @@
                 <plugin>
                     <groupId>com.amashchenko.maven.plugin</groupId>
                     <artifactId>gitflow-maven-plugin</artifactId>
-                    <version>1.14.0</version>
+                    <version>1.19.0</version>
                     <configuration>
                         <fetchRemote>false</fetchRemote>
                         <verbose>true</verbose>
@@ -235,7 +236,7 @@
                     <plugin>
                         <groupId>org.jacoco</groupId>
                         <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.8</version>
+                        <version>0.8.10</version>
                         <executions>
                             <execution>
                                 <goals>

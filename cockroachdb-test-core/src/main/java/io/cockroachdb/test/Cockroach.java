@@ -16,7 +16,7 @@ public @interface Cockroach {
     /**
      * Defines the version to download.
      */
-    String version() default "v23.1.10";
+    String version() default "v23.2.1";
 
     /**
      * Defines the base URL of the binaries http repository.

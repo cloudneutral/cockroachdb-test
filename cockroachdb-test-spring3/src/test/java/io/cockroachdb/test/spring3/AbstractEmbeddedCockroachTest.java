@@ -21,18 +21,18 @@ import io.cockroachdb.test.StartFlags;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Tag("integration-test")
-@SpringBootTest(classes = DemoApp.class)
+@SpringBootTest(classes = SpringApp.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 // Bind cockroach lifecycle to spring app events
 @ContextConfiguration(loader = EmbeddedCockroachLoader.class)
 @Cockroach(
-        version = "v23.1.10",
+        version = "v23.2.1",
         architecture = Cockroach.Architecture.arm64,
         command = Cockroach.Command.start_single_node,
         experimental = true,
         startFlags = @StartFlags(listenAddr = "localhost"),
         initSQL = {
-                "SET CLUSTER SETTING kv.raft_log.disable_synchronization_unsafe = true",
+//                "SET CLUSTER SETTING kv.raft_log.disable_synchronization_unsafe = true",
                 "SET CLUSTER SETTING kv.range_merge.queue_interval = '50ms'",
                 "SET CLUSTER SETTING jobs.registry.interval.gc = '30s'",
                 "SET CLUSTER SETTING jobs.registry.interval.cancel = '180s'",

@@ -31,13 +31,13 @@ import static io.cockroachdb.test.Constants.MIME_TYPE;
  * Uses conditional request with ETags for client-side caching.
  * <p>
  * Linux:
- * <a href="https://binaries.cockroachdb.com/cockroach-v23.1.10.linux-amd64.tgz">linux-amd64</a>
- * <a href="https://binaries.cockroachdb.com/cockroach-v23.1.10.linux-arm64.tgz">linux-arm64</a>
+ * <a href="https://binaries.cockroachdb.com/cockroach-v23.2.1.linux-amd64.tgz">linux-amd64</a>
+ * <a href="https://binaries.cockroachdb.com/cockroach-v23.2.1.linux-arm64.tgz">linux-arm64</a>
  * Mac:
- * <a href="https://binaries.cockroachdb.com/cockroach-v23.1.10.darwin-10.9-amd64.tgz">darwin-amd64</a>
- * <a href="https://binaries.cockroachdb.com/cockroach-v23.1.10.darwin-11.0-arm64.tgz">darwin-arm64</a>
+ * <a href="https://binaries.cockroachdb.com/cockroach-v23.2.1.darwin-10.9-amd64.tgz">darwin-amd64</a>
+ * <a href="https://binaries.cockroachdb.com/cockroach-v23.2.1.darwin-11.0-arm64.tgz">darwin-arm64</a>
  * Windows:
- * <a href="https://binaries.cockroachdb.com/cockroach-v23.1.10.windows-6.2-amd64.zip">windows-amd64</a>
+ * <a href="https://binaries.cockroachdb.com/cockroach-v23.2.1.windows-6.2-amd64.zip">windows-amd64</a>
  */
 public class DownloadStep implements Step {
     private final Logger logger = LoggerFactory.getLogger(getClass());
