@@ -5,7 +5,7 @@
 
     <groupId>io.cockroachdb.test</groupId>
     <artifactId>cockroachdb-test-parent</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>CockroachDB Test Project</name>
