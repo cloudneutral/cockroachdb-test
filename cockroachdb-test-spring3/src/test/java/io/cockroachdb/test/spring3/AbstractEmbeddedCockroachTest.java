@@ -26,7 +26,7 @@ import io.cockroachdb.test.StartFlags;
 // Bind cockroach lifecycle to spring app events
 @ContextConfiguration(loader = EmbeddedCockroachLoader.class)
 @Cockroach(
-        version = "v23.2.1",
+        version = "v24.2.0",
         architecture = Cockroach.Architecture.arm64,
         command = Cockroach.Command.start_single_node,
         experimental = true,

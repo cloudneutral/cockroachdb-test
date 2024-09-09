@@ -101,7 +101,7 @@ used to register and configure the CockroachDB extension.
 
 ```java
 @Cockroach(
-        version = "v23.2.1",
+        version = "v24.2.0",
         architecture = Cockroach.Architecture.amd64,
         command = Cockroach.Command.demo,
         demoFlags = @DemoFlags(global = true, nodes = 9)
@@ -181,7 +181,7 @@ A more complete example:
 @SpringBootTest
 @ContextConfiguration(loader = EmbeddedCockroachLoader.class)
 @Cockroach(
-        version = "v23.2.1",
+        version = "v24.2.0",
         architecture = Cockroach.Architecture.arm64,
         command = Cockroach.Command.start_single_node,
         experimental = true,

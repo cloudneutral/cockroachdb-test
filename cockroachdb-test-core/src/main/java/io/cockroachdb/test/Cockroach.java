@@ -15,8 +15,9 @@ import java.lang.annotation.*;
 public @interface Cockroach {
     /**
      * Defines the version to download.
+     * @see <a href="https://www.cockroachlabs.com/docs/releases/.">releases</a>
      */
-    String version() default "v23.2.1";
+    String version() default "v24.2.0";
 
     /**
      * Defines the base URL of the binaries http repository.
